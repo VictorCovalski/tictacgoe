@@ -8,6 +8,19 @@ type Mark int
 
 const boardSize = 3
 
+func (m Mark) String() string {
+	switch m {
+	case Empty:
+		return "E"
+	case Circle:
+		return "O"
+	case Cross:
+		return "X"
+	default:
+		panic("Unknown Mark")
+	}
+}
+
 const (
 	Empty  Mark = iota
 	Circle Mark = iota
@@ -104,4 +117,13 @@ func (t *TicTacToe) checkVictory() {
 
 func (t *TicTacToe) Reset() {
 	t = NewGame()
+}
+
+func (t *TicTacToe) GetBoard() [][]Mark {
+	board := make([][]Mark, len(t.board))
+	for i := range t.board {
+		board[i] = make([]Mark, len(t.board))
+		copy(board[i], t.board[i])
+	}
+	return board
 }
